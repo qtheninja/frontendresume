@@ -18,23 +18,25 @@ var contacts = {
 var onlineCourses = [
   {
     "title": "test",
-    "school": "Udacity",
+     "school": "Udacity",
     "date": 2015,
     "url": "URL HERE"
   }
 ];
-//BIO
+//JSON data for BIO
 var bio = {
     "name": "Cody Higdem",
     "age": 30,
     "role": "Web Deveoper",
     "email": "codyhigdem@gmail.com",
-    "profileImg": "urlHERE",
+    "biopic": "https://pbs.twimg.com/profile_images/462693307311599617/ysCCkZYP_400x400.jpeg",
     "contacts": contacts,
     "welcomeMessage": "If it's worth doing. Then do it no matter the odds",
-    "skills": skills
+    "skills": skills,
+    "display": function(){
+    }
   };
-
+//JSON data for education
 var education = {
   "schools" : [
     {
@@ -49,18 +51,18 @@ var education = {
       "city": "Minneapolis, Mn",
       "degree": "BA",
       "major": "Psychology",
-      "year": 2011
+      "year": 2010
       }
     ],
   "onlineCourses": onlineCourses
   };
-  
+//JSON data for WORK
 var work = {
   "jobs": [
     {
       "employer": "myself",
       "title": "Bossman",
-      "location": "Minneapolis, mn",
+      "location": "Minneapolis, Mn",
       "dates": "2009-2015",
       "description": "I was on a boat"
       },
@@ -79,19 +81,25 @@ var work = {
       "description": "I was on a boat"
       }
     ]
-};
+  "display": function(){
 
+    }
+};
+//JSON for projects id
 var projects = {
   "projects": [
     {
-      "title": "dances with wolves",
-      "dates": "1 - 100",
-      "description": "We danced inthe moon light",
-      "images": ["url here", "url here", "hurl"]
+      "title": "Portfolio of Images",
+      "dates": "July 2015",
+      "description": "This project was about building out some images for a portfolio site via udacity",
+      "images": ["http://i.imgur.com/61dvGLdb.png", "http://i.imgur.com/fXNgQeGb.png", "http://i.imgur.com/8jOOWf3b.png"]
     } 
-  ]
-};
+  ],
+  "display": function() {
 
+  }
+};
+//END of JSON DATA SETS
 var formattedName = HTMLheaderName.replace("%data%", bio.name);
 $("#header").append(formattedName);
 
@@ -104,18 +112,17 @@ if (bio.skills.length > 0){
   {
     var formattedSkill = HTMLskills.replace("%data%", bio.skills[i]);
     $("#skills").append(formattedSkill);
-    console.log(formattedSkill);
-    console.log(bio.skills[i]);
   };
 };
 
 
 
 
-
+/*
 for (skill in bio.skills){
   console.log(bio.skills[skill])
 }
+*/
 
 var displayWork = function(){
     //REMEMBER using for makes jobs the iterator
@@ -175,3 +182,42 @@ var inName = function(name){
 
 $('#main').append(internationalizeButton);
 console.log(locationizer(work));
+
+displayWork();
+
+var displayProject = function(){
+  //make da magic
+  console.log('hi mom');
+};
+
+projects.display = function (){
+  //make a 4 loop and then iterate through all of the projects
+  for(project in projects.projects){
+    //You can find this in helper.js helper code to display the json data
+    $("#projects").append(HTMLprojectStart);
+    //make a variable to shorten entry info
+    var projectEntry = projects.projects[project];
+    //remember looking at the json data it's var projects then . then "projects", then the catalogue number for projects, then the info like title, dates, description, images
+    var formattedTitle = HTMLprojectTitle.replace("%data%", projectEntry.title);
+    var formattedDates = HTMLprojectDates.replace("%data%", projectEntry.dates);
+    var formattedDescription = HTMLprojectDescription.replace("%data%", projectEntry.description);
+    //make a variable for id to hold on to. call it spot.
+    var spot = $(".project-entry:last");
+    spot.append(formattedTitle);
+    spot.append(formattedDescription);
+    spot.append(formattedDates);
+
+    //SEE if we have urls/images
+    if (projectEntry.images.length > 0){
+      for (image in projectEntry.images){
+        var formattedImage = HTMLprojectImage.replace("%data%", projectEntry.images[image]);
+        spot.append(formattedImage);
+      }
+    }
+  }
+}
+
+projects.display();
+
+//This mostly comes from helper.js via udacity
+$("#mapDiv").append(googleMap);
