@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //SKILLS ARRAY FOR BIO
 var skills = 
 [
@@ -194,3 +195,8 @@ education.display();
 projects.display();
 //This mostly comes from helper.js via udacity
 $("#mapDiv").append(googleMap);
+=======
+/*
+This is empty on purpose! Your code to build the resume will go here.
+ */
+>>>>>>> udacity/master
